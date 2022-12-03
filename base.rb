@@ -10,7 +10,7 @@ module Base
       response = Typhoeus.get(
         input_for_day,
         headers: {
-          'cookie' => nil
+          'cookie' => File.read('cookie.txt').strip
         }
       ).body
       File.write(input_local_file_for_day, response)
