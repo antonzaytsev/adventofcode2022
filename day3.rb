@@ -5,12 +5,7 @@ require './base.rb'
 class Day3
   include Base
 
-  def initialize
-    @input = 'https://adventofcode.com/2022/day/3/input'
-    @input_local_file = 'day3.txt'
-  end
-
-  def call
+  def part1
     priorities = input.split("\n").map do |row|
       compartments = divide_row(row)
       char = item_appeared_in_both_compartments(compartments)
@@ -20,7 +15,7 @@ class Day3
     priorities.sum(&:last)
   end
 
-  def call2
+  def part2
     priorities = input.split("\n").each_slice(3).map do |rows|
       item = rows.map(&:chars).reduce { |list, row| list & row }.first
       [item, item_priority(item)]
@@ -47,6 +42,3 @@ class Day3
     ord - (ord > 96 ? 96 : 38)
   end
 end
-
-# puts Day3.new.call
-puts Day3.new.call2

@@ -34,11 +34,9 @@ class Day2
 
   def initialize
     @score = 0
-    @input = 'https://adventofcode.com/2022/day/2/input'
-    @input_local_file = 'day2.txt'
   end
 
-  def game
+  def part1
     input.split("\n").each do |round|
       shapes = transform_letters_to_shapes(round.split(' '))
       add_shape_points(shapes)
@@ -48,8 +46,7 @@ class Day2
     @score
   end
 
-
-  def game2
+  def part2
     input.split("\n").each do |round|
       shapes = transform_letters_to_shapes_part2(round.split(' '))
       add_shape_points(shapes)
@@ -82,8 +79,6 @@ class Day2
     end
   end
 
-
-
   def add_shape_points(shapes)
     @score += SHAPE_POINTS[shapes[1]]
   end
@@ -107,7 +102,3 @@ class Day2
     SHAPE_PRIORITY[shapes[1]] == shapes[0]
   end
 end
-
-
-# puts Day2.new.game
-puts Day2.new.game2
