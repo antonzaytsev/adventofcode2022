@@ -37,7 +37,7 @@ class Day2
   end
 
   def part1
-    input.split("\n").each do |round|
+    input_rows.each do |round|
       shapes = transform_letters_to_shapes(round.split(' '))
       add_shape_points(shapes)
       add_winner_points(shapes)
@@ -47,7 +47,7 @@ class Day2
   end
 
   def part2
-    input.split("\n").each do |round|
+    input_rows.each do |round|
       shapes = transform_letters_to_shapes_part2(round.split(' '))
       add_shape_points(shapes)
       add_winner_points(shapes)

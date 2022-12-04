@@ -6,7 +6,7 @@ class Day3
   include Base
 
   def part1
-    priorities = input.split("\n").map do |row|
+    priorities = input_rows.map do |row|
       compartments = divide_row(row)
       char = item_appeared_in_both_compartments(compartments)
       [char, item_priority(char)]
@@ -16,7 +16,7 @@ class Day3
   end
 
   def part2
-    priorities = input.split("\n").each_slice(3).map do |rows|
+    priorities = input_rows.each_slice(3).map do |rows|
       item = rows.map(&:chars).reduce { |list, row| list & row }.first
       [item, item_priority(item)]
     end
