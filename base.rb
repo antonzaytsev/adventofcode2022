@@ -18,6 +18,10 @@ module Base
     end
   end
 
+  def input_rows
+    input.split("\n")
+  end
+
   def input_for_day
     INPUT_URL.sub(':day', day)
   end
