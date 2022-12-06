@@ -1,7 +1,3 @@
-require 'typhoeus'
-require 'pry'
-require_relative './base.rb'
-
 class Day3
   include Base
 

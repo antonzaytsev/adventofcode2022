@@ -1,6 +1,3 @@
-require 'typhoeus'
-require_relative './base.rb'
-
 class Day1
   include Base
 
