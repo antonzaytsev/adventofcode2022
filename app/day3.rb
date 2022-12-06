@@ -1,6 +1,6 @@
 require 'typhoeus'
 require 'pry'
-require './base.rb'
+require_relative './base.rb'
 
 class Day3
   include Base

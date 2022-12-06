@@ -1,0 +1,4 @@
+--color
+--tty
+--profile
+--require spec_helper
