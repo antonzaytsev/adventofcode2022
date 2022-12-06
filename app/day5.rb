@@ -41,19 +41,15 @@ class Day5
     @stacks.map { |_k, v| v.last }.join
   end
 
+  # first take every 4th element starting from 2
+  # transpose (rotate by 90 deg)
+  # finally convert to hash
   def input_stacks
-    # TODO: parse stacks from input
-    {
-      '1' => %w[N C R T M Z P],
-      '2' => %w[D N T S B Z],
-      '3' => %w[M H Q R F C T G],
-      '4' => %w[G R Z],
-      '5' => %w[Z N R H],
-      '6' => %w[F H S W P Z L D],
-      '7' => %w[W D Z R C G M],
-      '8' => %w[S J F L H W Z Q],
-      '9' => %w[S Q P W N],
-    }
+    input_rows[0..8].
+      map { |row| row.split('').select.with_index { |el, index| index % 4 == 1} }.
+      transpose.
+      map(&:reverse).
+      each_with_object({}) { |row, obj| obj[row.shift] = row.map(&:strip).reject(&:empty?) }
   end
 
   def input_procedures
