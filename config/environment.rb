@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'bundler'
-Bundler.setup(:default)
+Bundler.require(:default)
 
 Dir['app/*.rb'].each do | file|
   require "./#{file.sub('.rb', '')}"
