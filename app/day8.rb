@@ -22,28 +22,28 @@ class Day8
   end
 
   def loop_matrix_and_mark_visible(input_matrix, transposed: false)
-    input_matrix.each.with_object(Set.new).with_index do |(row, set), row_index|
-      # loop left to right and store max cell value to compare with each cell
-      prev_max_cell = nil
-      row.each.with_index do |cell, column_index|
-        key = [row_index, column_index]
-        key = key.reverse if transposed
+    input_matrix.each.with_index.with_object(Set.new) do |(row, row_index), set|
+      set = set.merge loop_to_find_visible_cells(row, row_index: row_index, direction: :straight, transposed: transposed)
+      set = set.merge loop_to_find_visible_cells(row, row_index: row_index, direction: :reverse, transposed: transposed)
+    end
+  end
 
-        set << key if prev_max_cell.nil? || prev_max_cell < cell
-
-        prev_max_cell = [cell, prev_max_cell || 0].max
+  def loop_to_find_visible_cells(row, row_index:, direction:, transposed:)
+    enumerator =
+      if direction == :straight
+        row.each.with_index
+      else
+        row.to_enum.with_index.reverse_each
       end
 
-      # loop right to left and store max cell value to compare with each cell
-      prev_max_cell = nil
-      row.reverse.each.with_index do |cell, column_index|
-        key = [row_index, row.size - column_index - 1]
-        key = key.reverse if transposed
+    prev_max_cell = nil
+    enumerator.each_with_object(Set.new) do |(cell, column_index), set|
+      key = [row_index, column_index]
+      key = key.reverse if transposed
 
-        set << key if prev_max_cell.nil? || prev_max_cell < cell
+      set << key if prev_max_cell.nil? || prev_max_cell < cell
 
-        prev_max_cell = [cell, prev_max_cell || 0].max
-      end
+      prev_max_cell = [cell, prev_max_cell || 0].max
     end
   end
 
