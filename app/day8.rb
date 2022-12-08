@@ -2,10 +2,10 @@ class Day8
   include Base
 
   def part1
-    @cell_visibility = {}
-    loop_matrix_and_mark_visible(matrix)
-    loop_matrix_and_mark_visible(matrix.transpose, transposed: true)
-    @cell_visibility.size
+    visible_cells = Set.new
+    visible_cells += loop_matrix_and_mark_visible(matrix)
+    visible_cells += loop_matrix_and_mark_visible(matrix.transpose, transposed: true)
+    visible_cells.size
   end
 
   def part2
@@ -22,13 +22,27 @@ class Day8
   end
 
   def loop_matrix_and_mark_visible(input_matrix, transposed: false)
-    input_matrix.each.with_index do |row, row_index|
+    input_matrix.each.with_object(Set.new).with_index do |(row, set), row_index|
+      # loop left to right and store max cell value to compare with each cell
+      prev_max_cell = nil
       row.each.with_index do |cell, column_index|
-        next unless tree_visible?(row, column_index, cell)
-
         key = [row_index, column_index]
         key = key.reverse if transposed
-        @cell_visibility[key] = true
+
+        set << key if prev_max_cell.nil? || prev_max_cell < cell
+
+        prev_max_cell = [cell, prev_max_cell || 0].max
+      end
+
+      # loop right to left and store max cell value to compare with each cell
+      prev_max_cell = nil
+      row.reverse.each.with_index do |cell, column_index|
+        key = [row_index, row.size - column_index - 1]
+        key = key.reverse if transposed
+
+        set << key if prev_max_cell.nil? || prev_max_cell < cell
+
+        prev_max_cell = [cell, prev_max_cell || 0].max
       end
     end
   end
